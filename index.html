@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaika Syed</title>
+    <style>
+        :root {
+            --primary-bg-color: #0a192f;
+            --secondary-bg-color: #112240;
+            --primary-text-color: #ccd6f6;
+            --secondary-text-color: #8892b0;
+            --accent-color: #64ffda;
+            --card-bg-color: #112240;
+            --nav-height: 80px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Calibre', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg-color);
+            color: var(--primary-text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 2rem;
+        }
+
+        /* --- Navigation Bar --- */
+        #navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background-color: rgba(17, 34, 64, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #0a192f;
+            transition: top 0.3s;
+            box-sizing: border-box; /* Ensures padding doesn't add to width */
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo a {
+            color: var(--accent-color);
+            text-decoration: none;
+            border: 2px solid var(--accent-color);
+            padding: 0.4rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        #nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        #nav-links a {
+            color: var(--primary-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        #nav-links a:hover,
+        #nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        /* --- Hamburger Menu (for Mobile) --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 10px;
+            z-index: 101;
+        }
+        
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid #1d2d44;
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-text-color);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: 0.5rem auto 0;
+        }
+
+        /* Home (Hero) Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #home h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin: 0; color: #e6f1ff; }
+        #home h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin: 0; color: var(--secondary-text-color); }
+        #home p { max-width: 600px; font-size: 1.1rem; margin: 1rem 0 2rem; }
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .cta-button:hover { background-color: rgba(100, 255, 218, 0.1); }
+        
+        /* Skills Section */
+        #skills .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 900px; margin: auto; }
+        .skill-category { background: var(--card-bg-color); padding: 2rem; border-radius: 8px; border: 1px solid #1d2d44; }
+        .skill-category h3 { color: var(--accent-color); margin-top: 0; text-align: center; font-size: 1.5rem; }
+        .skill-category ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+        .skill-category li { background: var(--primary-bg-color); color: var(--primary-text-color); padding: 0.5rem 1rem; border-radius: 5px; font-weight: 500; }
+
+        /* Card Styles */
+        .card-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        .card { background: var(--card-bg-color); border-radius: 8px; padding: 2rem; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid transparent; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); border-color: var(--accent-color); }
+        .card h3 { color: var(--primary-text-color); margin-top: 0; }
+        .card h3 a { color: var(--primary-text-color); text-decoration: none; }
+        .card h3 a:hover { color: var(--accent-color); }
+        .card-meta { font-size: 0.9rem; color: var(--secondary-text-color); margin-bottom: 1rem; font-style: italic; }
+        .project-link { display: inline-block; margin-top: 1rem; font-weight: bold; color: var(--primary-text-color); text-decoration: none; }
+        .project-link:hover { color: var(--accent-color); text-decoration: underline; }
+        #education .card-container { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+        /* Contact & Footer */
+        #contact { text-align: center; }
+        #contact p { max-width: 600px; margin: 0 auto 2rem; }
+        #main-footer { text-align: center; padding: 2rem; color: var(--secondary-text-color); font-size: 0.9rem; }
+
+        /* --- Responsive Design --- */
+        /* Updated Breakpoint from 768px to 850px */
+        @media (max-width: 850px) {
+            #navbar { padding: 0 1.5rem; }
+            .hamburger { display: block; }
+
+            #nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Start off-screen */
+                width: 75%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--secondary-bg-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                transition: right 0.4s ease-in-out;
+                box-shadow: -10px 0px 30px -15px #0a192f;
+            }
+
+            #nav-links.open {
+                right: 0; /* Slide in */
+            }
+
+            .hamburger.open .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.open .bar:nth-child(2) { opacity: 0; }
+            .hamburger.open .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            
+            section { padding: 4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo">
+            <a href="#home">MS</a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#education" class="nav-link">Education</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </nav>
+
+    <div class="container">
+        <section id="home">
+             <h1>Malaika Syed.</h1>
+            <h2>Aspiring Web Developer.</h2>
+            <p>I am a dedicated Computer Science student with a passion for building clean, responsive, and user-friendly web interfaces. Currently seeking a challenging role in software and website development.</p>
+            <a href="mailto:malaikasyed0@gmail.com" class="cta-button">Get In Touch</a>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <p>
+                As a Computer Science undergraduate with a strong foundation in languages like Java, Python, and JavaScript, I am deeply interested in the entire web development spectrum. My current internship is focused on the MERN stack, and I am always eager to learn new technologies and apply my problem-solving skills to create elegant and efficient digital solutions.
+            </p>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Experience</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>MERN Stack Development Internee</h3>
+                    <p class="card-meta">Elite Tech x ZenithCraft Ventures | Remote | Jan 2026 - Present</p>
+                    <p>Engaged in a hands-on internship focused on modern web development technologies within the MERN (MongoDB, Express.js, React, Node.js) stack. Collaborating with a team to build and maintain web applications.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Technical Skills</h3>
+                    <ul>
+                        <li>Java</li><li>Python</li><li>JavaScript</li><li>React</li><li>HTML5</li><li>CSS</li><li>SQL</li><li>C</li><li>Node.js</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Professional Skills</h3>
+                    <ul>
+                        <li>Teamwork</li><li>Problem Solving</li><li>Time Management</li><li>Communication</li><li>Adaptability</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="card-container">
+                 <div class="card">
+                    <h3><a href="https://github.com/malaika-syed-0/Smart-Store-Manager" target="_blank">Smart Store Management System</a></h3>
+                    <p>A comprehensive retail management system developed with a Java-based GUI and integrated with SQL for robust data handling and inventory management.</p>
+                    <a href="https://github.com/malaika-syed-0/Smart-Store-Manager" target="_blank" class="project-link">View on GitHub &rarr;</a>
+                </div>
+                <div class="card">
+                    <h3><a href="https://github.com/malaika-syed-0/CalcMate" target="_blank">Calcmate</a></h3>
+                    <p>A responsive and user-friendly multi-functional calculator website built with HTML, CSS, and JavaScript with a focus on clean design and cross-device compatibility.</p>
+                    <a href="https://github.com/malaika-syed-0/CalcMate" target="_blank" class="project-link">View on GitHub &rarr;</a>
+                </div>
+                <div class="card">
+                    <h3><a href="https://github.com/malaika-syed-0/TicTacToe" target="_blank">Tic Tac Toe</a></h3>
+                    <p>A classic Tic Tac Toe game created in Java, demonstrating object-oriented programming principles and responsive interface design for a great user experience.</p>
+                    <a href="https://github.com/malaika-syed-0/TicTacToe" target="_blank" class="project-link">View on GitHub &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>COMSATS University Islamabad</h3>
+                    <p class="card-meta">Bachelor of Science in Computer Science | 2024 - Present</p>
+                    <p><strong>CGPA: 3.79 / 4.0</strong></p>
+                </div>
+                <div class="card">
+                    <h3>Tameer-i-wattan Public School</h3>
+                    <p class="card-meta">F.Sc. Pre-Medical | 2020 - 2022</p>
+                    <p><strong>Grade: A+</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Connect With Me</h2>
+            <p>I'm currently looking for new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll get back to you!</p>
+            <a href="mailto:malaikasyed0@gmail.com" class="cta-button">Say Hello</a>
+        </section>
+    </div>
+
+    <footer id="main-footer">
+        <p>Designed & Built by Malaika Syed</p>
+        <p>&copy; 2026 All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const navLinkItems = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            hamburger.classList.toggle('open');
+        });
+
+        navLinkItems.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    hamburger.classList.remove('open');
+                }
+            });
+        });
+
+        const sections = document.querySelectorAll('section');
+        const navA = document.querySelectorAll('ul#nav-links li a');
+        const navHeightString = getComputedStyle(document.documentElement).getPropertyValue('--nav-height') || '80px';
+        const navHeight = parseInt(navHeightString, 10);
+
+        window.addEventListener('scroll', () => {
+            let current = 'home';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - navHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navA.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').substring(1) === current) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
